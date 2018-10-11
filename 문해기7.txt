@@ -1,0 +1,251 @@
+1.
+수열에서 큰 값이 작은 값보다 먼저나오는 경우 -> 역전된 쌍
+입력으로 받은 후 역전된 쌍의 개수를 카운트하여 출력
+
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int n,count=0;
+	scanf("%d", &n);
+	int a[MAX];
+	for (int i = 0; i < n; i++)
+		scanf("%d", &a[i]);
+
+	for (int j = 0; j < n; j++) {
+		for (int i = j + 1; i < n; i++) {
+			if (a[j] > a[i])
+				count++;
+
+		}
+	}
+	printf("%d", count);
+	return 0;
+}
+
+2.
+i<j<k
+a[i]>a[j]>a[k]
+는 역전된 삼중쌍 
+삼중쌍의 개수
+n입력후 n개의 정수 입력
+
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int n,count=0;
+	scanf("%d", &n);
+	int a[MAX];
+	for (int i = 0; i < n; i++)
+		scanf("%d", &a[i]);
+
+	for (int i = 0; i < n; i++) {
+		for (int j = i + 1; j < n; j++) {
+			if (a[i] > a[j]) {
+				for (int k = j + 1; k < n; k++)
+					if (a[j] > a[k])
+						count++;
+			}
+		}
+	}
+	printf("%d", count);
+	return 0;
+}
+
+4.
+입력으로 하나의 수열이 주어짐
+오름차순으로 정렬되어있는 가장 긴 구간을 찾아서 그 구간의 길이를 
+출력하는 프로그램을 작성
+
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int n,count=1,max=0;
+	scanf("%d", &n);
+	int a[MAX],k;
+	int b[MAX] = { 0 };
+	for (int i = 0; i < n; i++)
+		scanf("%d", &a[i]);
+
+	for (int i = 1; i < n; i++) {
+		if (a[i - 1] > a[i])
+			count = 0;
+		count++;
+
+		if (count > max)
+			max = count;
+	}	
+	printf("%d", max);
+	return 0;
+}
+
+
+7.
+입력으로 n개의 폐구간이 주어짐 
+이중 겹치는 길이가 가장 긴 두구간을찾아서 출력
+
+
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int start[MAX],end[MAX],Sta,End;
+	int max=0, length,maxi,maxj,n=0;
+	FILE*fp = fopen("input7.txt", "r");
+	while (fscanf(fp, "%d %d", &start[n],&end[n]) != EOF) {
+		n++;
+	}
+	fclose(fp);
+	
+	for (int i = 0; i < n; i++) {
+		for (int j = i + 1; j < n;j++) {
+			if (end[i] < start[j])
+				length = 0;
+			else if (end[j] < start[i])
+				length = 0;
+			else
+			{
+				if (start[i] > start[j])
+					Sta = start[i];
+				else
+					Sta = start[j];
+
+				if (end[i] > end[j])
+					End = end[j];
+				else
+					End = end[i];
+
+				length = End - Sta + 1;
+
+			}
+			if (length > max) {
+				max = length;
+				maxi = i;
+				maxj = j;
+			}
+
+		}
+	}
+	printf("%d,[%d,%d],[%d,%d]\n ", max,start[maxi],end[maxi],start[maxj],end[maxj]);
+
+	return 0;
+}
+
+
+7-2.
+
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int start[MAX],end[MAX],Sta,End;
+	int max=0, length=0,maxi,maxj,n=0;
+	FILE*fp = fopen("input7.txt", "r");
+	while (fscanf(fp, "%d %d", &start[n],&end[n]) != EOF) {
+		n++;
+	}
+	fclose(fp);
+	
+	for (int i = 0; i < n; i++) {
+		for (int j = i + 1; j < n;j++) {
+			
+			if(end[i]>=start[j]||end[j]>=start[i])
+			{
+				if (start[i] > start[j])
+					Sta = start[i];
+				else
+					Sta = start[j];
+
+				if (end[i] > end[j])
+					End = end[j];
+				else
+					End = end[i];
+
+				length = End - Sta + 1;
+
+			}
+			if (length > max) {
+				max = length;
+				maxi = i;
+				maxj = j;
+			}
+
+		}
+	}
+	printf("%d,[%d,%d],[%d,%d]\n ", max,start[maxi],end[maxi],start[maxj],end[maxj]);
+
+	return 0;
+}
+
+8.
+
+
+10.
+n미만의 음이 아닌 n개의 정수들이 저장된 배열 a가 있다.
+루트찾기 1~n의 루트 모두 출력
+루트가 존재하지 않으면 -1출력
+
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int n,a,j=1;
+	scanf("%d", &n);
+	int A[MAX];
+	for (int i = 0;i < n; i++)
+		scanf("%d", &A[i]);
+	for (int i = 0; i < n; i++) {
+		a = A[i];
+		j = 0;
+		for (int k = 0; k <= i; k++) {
+			a = A[a];
+			if (A[a] == a) {
+				j = 1;
+			}
+		}
+		if(j==1)
+			printf("%d\n", a);
+		else
+			printf("-1\n");
+	}
+	return 0;
+}
+
+
+11.
+0혹은 1로 이루어진 길이가 n인 수열이있다
+이 중 최대 하나의 0을 1로 교체해서 만들 수 있는 가장 긴 연속된
+1의 개수를 구하는 프로그램.
+
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int n,count,max=1,k=0;
+	scanf_s("%d", &n);
+	int flag[MAX];
+
+	for (int k = 0; k < n; k++)
+		scanf_s("%d", &flag[k]);
+
+	for (int i = 0; i < n; i++) {
+		count = 1;
+		if (flag[i] == 0) {
+			flag[i] = 1;
+			k = 1;
+		}
+		for (int j = 1; j < n; j++) {
+			if (flag[j - 1] == 1 && flag[j] == 1)
+				count++;
+		}
+		if (count > max)
+			max = count;
+		if (k == 1)
+			flag[i] = 0;
+	}
+	printf("%d\n", max);
+
+	return 0;
+}

@@ -1,0 +1,197 @@
+2.
+
+정수가 하나씩 입력될떄마다 현재까지 입력된 정수들을 오름차순으로 정렬하여 
+화면에 출력하는 프로그램
+새로 입력된 정수가 이미 존재하는지 검사하는 함수
+존재하지 않을때 배열에 집어넣는 함수 
+
+#include <stdio.h>
+#define MAX 100
+int find(int count, int n,int data[]);
+void insert(int count,int n,int data[]);
+int main() {
+	int n, count = 0, i = 0;
+	int data[MAX];
+	
+	scanf("%d", &n);
+	data[0] = n; count++;
+	printf("%d", data[0]);
+	while (1) {
+		scanf("%d", &n);
+		if (n == -1)
+			break;
+		if (find(count, n, data) == -1) {
+			insert(count, n, data); count++;
+		}
+		else {
+			printf("duplicate entry : %d", find(count, n, data)); continue;
+		}
+
+
+		for (int j = 0; j < count; j++)
+			printf("%d ", data[j]);
+		printf("\n");
+	}return 0;
+}
+int find(int count,int n,int data[]) {
+	int result;
+	for (int i=0; i < count; i++) {
+		if (data[i] == n) {
+			result = i; break;
+		}
+		else result = -1; 
+	}return result;
+}
+void insert(int count, int n, int data[]) {
+	int i = count - 1;
+	while (i >= 0 && data[i] > n) {
+		data[i + 1] = data[i];
+		i--;
+	}
+	data[i + 1] = n;
+}
+
+
+3.
+입력으로 수직 혹은 수평의 선이 주어짐
+선분들의 교차점의 좌표를 모두 계산하여 x좌표에대한 오름차순으로 출력
+x좌표가 동일한 경우 y좌표를 먼저 출력
+(하나의 수평선분 과 수직선분이 교차하는지 검사하는 방법-
+l의 양 끝점이 v의 좌우에 나누어져있고 v의 양끝점이 l의 상하에 나누어져있으면 교차)
+
+#include <stdio.h>
+#define MAX 100
+int vertical(int x1[], int x2[], int y1[], int y2[], int i, int j);
+void insert(int x[], int y[], int n_count);
+int main() {
+	int x1[MAX], y1[MAX], x2[MAX], y2[MAX];
+	int VerHor[MAX];
+	int x[MAX], y[MAX];
+	int n_count = 0;
+
+	int i = 0, n;
+	FILE*fd = fopen("input3.txt", "r");
+	fscanf(fd, "%d", &n);
+	while (i<n) {
+		fscanf(fd, "%d %d %d %d", &x1[i], &y1[i], &x2[i], &y2[i]);
+		if (x1[i] == x2[i])VerHor[i] = 1;
+		else VerHor[i] = 0;
+		i++;
+	}fclose(fd);
+
+	for (int i = 0; i < n; i++) {
+		for (int j = i + 1; j < n; j++) {
+			if (VerHor[i]==1 && VerHor[j]==0) {
+				if (vertical(x1, x2, y1, y2, i, j) == 1) {
+					x[n_count] = x1[i]; y[n_count++] = y1[j];
+				}
+			}
+			else if (VerHor[i]==0 && VerHor[j]==1) {
+				if (vertical(x1, x2, y1, y2, j, i) == 1) {
+					x[n_count] = x1[j]; y[n_count++] = y1[i];
+				}
+			}
+		}
+	}
+	insert(x, y, n_count);
+
+	for (int i = 0; i < n_count; i++)
+		printf("[%d, %d]\n", x[i], y[i]);
+}
+int vertical(int x1[], int x2[], int y1[], int y2[], int i, int j) {
+	if (x1[j] <= x1[i] && x2[j] >= x1[i] && y1[i] <= y1[j] && y2[i] >= y1[j])
+		return 1;
+	else return 0;
+}
+void insert(int x[], int y[], int n_count)
+{
+	for (int i = 1; i < n_count; i++) {
+		int tmpx = x[i];
+		int tmpy = y[i];
+		int j = i - 1;
+		while (j >= 0 && (x[j] > tmpx || x[j] == tmpx && y[j] > tmpy)) {
+			x[j + 1] = x[j];
+			y[j + 1] = y[j];
+			j--;
+		}
+		x[j + 1] = tmpx;
+		y[j + 1] = tmpy;
+	}
+}
+
+
+5.
+2차원 평면 (0,0)에서 출발 
+사용자가 현재의 위치에서 상하좌우 어떤 한 방향으로 얼마 만큼 이동하라는
+명령을 내리면 그렇게 이동
+0123으로 방향 그다음 길이입력
+ 지금까지 이동한 궤적과 교차하면 invalid move&명령거부
+교차하지 않으면 이동
+
+
+#include <stdio.h>
+#define MAX 100
+int check(int plus, int walk_x[], int walk_y[], int x, int y,int distance);
+int main() {
+	int direction,distance;
+	int x = 0, y = 0, r_x[MAX], r_y[MAX], count = 1, walk_x[MAX], walk_y[MAX], plus = 1;
+	r_x[0] = 0,walk_x[0]=0;
+	r_y[0] = 0,walk_y[0]=0;
+	while (1) {
+		scanf("%d %d", &direction, &distance);
+
+		if (direction == -1 && distance == -1)
+			break;
+
+		if (direction == 0) {
+			for (int i = 0; i < distance; i++) {
+				plus++;
+				y++; walk_y[plus] = y; walk_x[plus]=x;
+			}
+		}
+		else if (direction == 1) {
+			for (int i = 0; i < distance; i++) {
+				plus++;
+				x++; walk_y[plus] = y; walk_x[plus]=x;
+			}
+		}
+		else if (direction == 2) {
+			for (int i = 0; i < distance; i++) {
+				plus++;
+				y--; walk_y[plus] = y; walk_x[plus]=x;
+			}
+		}
+		else {
+			for (int i = 0; i < distance; i++) {
+				plus++;
+				x--; walk_y[plus] = y; walk_x[plus]=x;
+			}
+		}
+		
+		int result = check(plus,walk_x,walk_y,x,y,distance);
+		
+		if (result == 1) {
+			printf("invalid move\n");
+			x = r_x[count - 1]; plus = plus - distance-1;
+			y = r_y[count - 1];
+		}
+		else
+		{
+			r_x[count] = x, r_y[count] = y;
+			printf("%d %d\n", r_x[count], r_y[count]);
+			count++;
+		}
+	}
+		return 0;
+}
+int check(int plus,int walk_x[],int walk_y[],int x,int y,int distance) {
+	for (int i = 0; i < plus - distance; i++) {
+		{for(int j=plus-distance;j<=plus;j++)
+
+			if (walk_x[i] == walk_x[j] && walk_y[i] == walk_y[j])
+				return 1; }
+	}
+	return 0;
+}
+}
+

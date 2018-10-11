@@ -1,0 +1,286 @@
+1.
+#include <stdio.h>
+int main(void)
+{
+	int a, b,sum;
+	sum = 1;
+	printf("a와b를 입력하시오:");
+	scanf("%d %d", &a, &b);
+	for (int i = 1; i <= b; i++)
+	{
+		sum *= a;
+	}
+	printf("%d", sum);
+	return 0;
+
+}
+
+2.
+
+#include <stdio.h>
+int main(void)
+{
+	int c;
+	double f;
+	for (c = 0; c <= 100; c = c + 4)
+	{
+		printf("%d ", c);
+		f = c*1.8 + 32;
+		printf("%lf\n", f);
+	}
+	return 0;
+}
+
+
+3.
+
+#include <stdio.h>
+int main(void)
+{
+	int n;
+	double a, sum=0.0;
+	scanf("%d", &n);
+	for (int i = 1; i <= n; i++)
+	{
+		a = 1.0 / i;
+		sum += a;
+	}
+	printf("%lf", sum);
+	
+	return 0;
+}
+4.
+#include <stdio.h>
+int main(void)
+{
+       int n,pre=1,prepre=1,sum=0;
+       printf("n>=2인 정수를 입력하시오:");
+       scanf("%d",&n);
+       for(int i=1;i<n;i++)
+       {
+       sum=pre+prepre;
+       prepre=pre;
+       pre=sum;
+       }
+       printf("%d",sum);
+       return 0;
+}
+
+
+5.
+
+#include <stdio.h>
+int p(int n);
+int main(void)
+{
+	int n;
+	printf("n>2인 정수를 입력하여라:");
+	scanf_s("%d", &n);
+	printf("%d", p(n));
+	return 0;
+}
+int p(int n)
+{
+	int result;
+
+	switch (n)
+	{
+	case 0:
+		result = 1;
+		break;
+	case 1:
+		result = 1;
+		break;
+
+	case 2:
+		result = 1;
+		break;
+	default:
+		result = p(n - 2) + p(n - 3);
+		break;
+
+	}
+	return result;
+}
+
+6.
+
+#include <stdio.h>
+int main(void)
+{
+	int n,a=1;
+	double sum=1.0;
+	scanf("%d", &n);
+	for (int i = 0; i <n; i++)
+	{
+		a *= 2.0;
+		sum += 1.0 / a;
+	}
+	printf("%lf\n", sum);
+	return 0;
+}
+
+7.
+#include <stdio.h>
+int main(void)
+{
+	int n;
+	double a, sum; a = 1.0; sum = 1.0;
+	printf("정수를 입력하시오:");
+	scanf("%d", &n);
+
+	for (int i=1;i<=n; i++)
+	{
+		a = a *(-1/2.0);
+		sum = sum+a;
+		
+	}
+		printf("값은 %lf이다.\n",sum);
+
+	
+	return 0;
+}
+
+8.
+#include <stdio.h>
+int main(void)
+{
+	int n,fact=1;
+	double sum = 0.0;
+	scanf("%d", &n);
+	for (int i = 1; i <= n; i++)
+	{
+		fact *= i;
+		sum += 1.0 / fact;
+	}
+	printf("%lf", sum);
+	return 0;
+}
+
+9.
+
+#include <stdio.h>
+int main(void)
+{
+	int n;
+	double sum = 0.0,a=-1.0,odd;
+
+	scanf("%d", &n);
+	for (int i = 1; i<=n; i++)
+	{
+		a = a*-1.0;
+		odd = 2.0 * i - 1;
+		sum += (4*a) / odd;
+	}
+	printf("%lf", sum);
+	return 0;
+}
+11.
+#include <stdio.h>
+int main(void)
+{
+	int result, n;
+	printf("정수를 입력하여라");
+	scanf("%d", &n);
+
+	for (int i = n; i >= 1; i=i/2)
+	{
+		printf("%d\n", i);
+	}
+	return 0;
+}
+
+12.
+#include <stdio.h>
+int main(void)
+{
+	int n;
+	float result, sum;  sum = 0; result = 1;
+
+	for (int i = 1.0; i <= 10; i++)
+	{
+		scanf("%d", &n);
+		sum += n;
+		result = sum / i;
+		printf("%f\n", result);
+	}
+	return 0;
+}
+
+13
+#include <stdio.h>
+int main(void)
+{
+	double a, sum, r; a = 0; sum = 0;
+	int n;
+	scanf("%lf", &r);
+
+	for (int i = 1; i <= 12; i++)
+	{
+ 		scanf("%d", &n);
+	  	sum = a+ n;
+		a = sum + r*sum;
+		printf("%lf\n", a);
+	}
+	return 0;
+}
+
+14.
+#include <stdio.h>
+int main(void)
+{
+	double x, SINX, COSX;  
+	COSX = 1.0;
+	double fact = 1.0;
+	double result;
+	double fact_a = 1.0;
+	double result_a = 1.0;
+	scanf("%lf", &x);
+	SINX = x;
+	result = x;
+	for (int i = 1; i <= 100; i++)
+	{
+		fact = fact*(2.0 * i + 1.0)*(2.0 * i);
+		result *= x*x*(-1.0);
+		SINX += ((result) / fact);
+
+		result_a *= x*x*(-1.0);
+		fact_a = fact_a*(2.0 * i)*(2.0 * i - 1);
+		COSX += (result_a / fact_a);
+
+	}
+	printf("sinx=%lf cosx=%lf\n", SINX, COSX);
+	return 0;
+}
+
+
+
+
+#include <stdio.h>
+int main(void)
+{
+	int n;
+	scanf("%d", &n);
+
+	int a, b,x,y,x1,y1;
+
+	scanf("%d %d", &a, &b);
+	x = a;
+	y = b;
+	for (int i = 1; i <= n - 1; i++)
+	{
+		scanf("%d %d", &x1, &y1);
+		if ((x == x1) || (y == y1))
+		{
+			printf("Df");
+		}
+		else
+			printf("Input error");
+		x = x1;
+		y = y1;
+
+	}
+	return 0;
+
+
+}

@@ -1,0 +1,138 @@
+3.
+#include <stdio.h>
+int main(void)
+{
+	int N, x, y;
+	scanf("%d", &N);
+	for (y = 0; y <= N; y++) {
+		if (y % 2 == 0) {
+			for (x = 0; x <= N; x++) {
+				printf("%d %d\n", x, y);
+			}
+		}
+		else {
+			for (x = N; x >= 0; x--) {
+				printf("%d %d\n", x, y);
+			}
+		}
+	}
+	return 0;
+}
+4.
+#include <stdio.h>
+int main(void)
+{
+	int k,a;
+	int x,y;
+	scanf("%d", &k);
+	for (a = 0; a <= k; a++) {
+		for (x = 0; x <= a; x++) {
+			printf("%d %d\n", x, a-x);
+		}
+	}
+	return 0;
+}
+
+7.
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+int main(void)
+{
+	int n;
+	int sum=0,t=1000;
+	srand((unsigned)time(NULL));
+	scanf("%d", &n);
+	for(int i=1;i<=t;i++)
+	{
+		int x = 0, y = 0,count=0;
+		while (1) {
+			if (x == n || x == -n || y == -n || y == n)
+				break;
+			int a = rand() % 4;
+			switch (a) {
+			case 0:x++; break;
+			case 1:x--; break;
+			case 2:y++; break;
+			case 3:y--; break;
+			}
+			count++;
+		}
+		sum += count;
+	}
+	printf("%d\n", sum / t);
+	
+	return 0;
+}
+
+8.
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+int main(void)
+{
+	int t = 1000000;
+	int total1 = 0,total2 = 0;
+	srand((unsigned)time(NULL));
+	for (int i = 1; i <= t; i++) {
+		int win1 = 0;
+		for (int k = 1;k <= 6; k++) {
+			int a = 1 + (rand() % 6);
+			if (a == 1)
+				win1++;
+			}
+		if (win1>=1)
+			total1++;
+
+		int win2 = 0;
+		for (int k = 1; k <= 12; k++) {
+			int a = 1 + (rand() % 6);
+			if (a == 1) 
+				win2++;
+		}
+		if (win2 >= 2)
+			total2++;
+	}
+	printf("%lf %lf\n",(double)total1 / t,(double)total2 / t);
+
+	return 0;
+}
+
+10.
+#include <stdio.h>
+int main(void)
+{
+	int ax, ay, bx, by, cx, cy, dx, dy;
+	scanf("%d %d %d %d %d %d %d %d", &ax, &ay, &bx, &by, &cx, &cy, &dx, &dy);
+	int bx1, sx1, by1, sy1, bx2, sx2, by2, sy2;
+	if (bx > ax) { bx1 = bx; sx1 = ax; }
+	else { bx1 = ax; sx1 = bx; }
+
+	if (by > ay) { by1 = by; sy1 = ay; }
+	else { by1 = ay; sy1 = by; }
+
+	if (cx > dx) { bx2 = cx; sx2 = dx; }
+	else { bx2 = dx; sx2 = cx; }
+
+	if (cy > dy) { by2 = cy; sy2 = dy; }
+	else { by2 = dy; sy2 = cy; }
+
+	int s, b, w, h;
+	if (sx1 < sx2)s = sx2;
+	else s = sx1;
+	if (bx1 < bx2)b = bx1;
+	else b = bx2;
+	if (s < b)w = b - s;
+	else w = 0;
+
+	if (by1>by2)b = by2;
+	else b = by1;
+	if (sy1 < sy2)s = sy2;
+	else s = sy1;
+	if (b>s)h = b - s;
+	else h = 0;
+
+	printf("%d", w*h);
+	return 0;
+
+}

@@ -1,0 +1,377 @@
+1.
+
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int n,k,max,minus,count=0;
+	int data[MAX];
+	int data_pos = 0;
+	
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++)
+		scanf("%d", &data[i]);
+	scanf("%d", &k);
+	for (int i = 0; i < n; i++) {
+		if (data[i] <= k) {
+			max = data[i];
+			data_pos = i;
+			count++;
+			break;
+		}
+	}
+	
+	for(int i=0;i<n;i++){
+		if (data[i] <= k&&data[i]>max) {
+			max = data[i];
+			data_pos = i;
+		}
+	}
+	if (k > max)
+		minus = k - max;
+	else
+		minus = max - k;
+
+	if (count > 0)
+		printf("%d %d %d", data_pos, max, minus);
+	else
+		printf("-1");
+
+	return 0;
+}
+
+2.
+
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int data[MAX];
+	int n = 0,min,min2;
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++)
+		scanf("%d", &data[i]);
+	if (data[0] >= data[1]) {
+		min = data[1];
+		min2 = data[0];
+	}
+	else {
+		min = data[0];
+		min2 = data[1];
+	}
+	for (int i = 2; i < n; i++) {
+		if (min >= data[i]) {
+			min2 = min;
+			min = data[i];
+		}
+		if ((min < data[i]) && (min2 >= data[i]))
+			min2 = data[i];
+	}
+	printf("%d %d\n", min, min2);
+	return 0;
+}
+
+3.
+
+#include <stdio.h>
+#include <math.h>
+#define MAX 100
+int main(void)
+{
+	int n,sum=0;
+	double avg, sd, a,sum2=0;
+	int data[MAX];
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++)
+		scanf("%d", &data[i]);
+	for (int i = 0; i < n; i++)
+		sum += data[i];
+	avg = sum / (n*1.0);
+
+	for (int i = 0; i < n; i++) {
+		a = (data[i] - avg);
+		sum2 += (a*a);
+	}
+	sd = sqrt(sum2 / n);
+	printf("%lf %lf\n", avg, sd);
+
+	return 0;
+}
+4.
+#include<stdio.h>
+int main(void)
+{
+	int data[10] = { 0,0,0,0,0,0,0,0,0,0 };
+		int n, a,j;
+		scanf("%d", &n);
+
+		while (n > 0) {
+			a = n % 10;
+			n = n / 10;
+			for (j = 0; j < 10; j++) {
+				if (j == a) {
+					data[j] = data[j] + 1;
+				}
+			}
+		}
+		for (int k = 0; k<10; k++)
+			printf("%d", data[k]);
+		
+		return 0;
+
+	}
+
+
+5.
+
+#include<stdio.h>
+int main(void)
+{
+	int y1, m1, d1, y2, m2, d2, y_minus,m_minus;
+	int sum=0,sum2=0,a,sum3=0;
+	int data[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+	scanf("%d %d %d %d %d %d", &y1, &m1, &d1, &y2, &m2, &d2);
+	
+	y_minus = y2 - y1;
+	if (y_minus>1) {
+		for (int i = m1; i < 12; i++) {
+			sum += data[i];
+			//+data[(m1-1)]-d1;
+		}
+		for (int i = 0; i < (m2 - 1); i++) {
+			sum2 += data[i];//+d2
+		}
+		if ((m2 - m1) > 0)//O
+			printf("%d", (y_minus) * 365 + sum + (data[(m1 - 1)] - d1) + sum2 + d2);
+		else if ((m2 - m1) < 0)
+			printf("%d", (y_minus - 1) * 365 + sum + (data[m1 - 1] - d1) + sum2 + d2);
+		else {
+			if (d2 - d1 <= 0)
+				printf("%d", y_minus * 365 + (d2 - d1));
+			else
+				printf("%d", y_minus * 365 - (d2 - d1));
+		}
+
+
+	}
+	if (y_minus <=1) {
+		for (int i = m1 ; i < m2 - 1; i++)
+			sum3 += data[i];
+		if (m2 - m1 > 0) {
+			printf("%d", y_minus * 365 + sum3 + (data[m1 - 1] - d1) + d2);
+		}
+		else//O
+			printf("%d", (y_minus - 1) * 365 + sum3 + (data[m1 - 1] - d1) + d2);
+
+	}
+	return 0;
+}
+
+6.
+
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int n,k,a,min,i,b;
+	int data[MAX];
+
+	scanf("%d", &n);
+	for (int j = 0; j < n; j++)
+		scanf("%d", &data[j]);
+	
+	scanf("%d", &k);
+	if (k - data[0] > 0)
+		a = k - data[0];
+	else
+		a = data[0] - k;
+	min = a;
+	
+	for (i = 0; i < n; i++) {
+		if (k > data[i])
+			a = k - data[i];
+		else
+			a = data[i] - k;
+
+		if (a < min) {
+			min = a;
+			b = data[i];
+		}
+	}
+	printf("%d", b);
+		return 0;
+}
+
+7.
+
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int data[MAX];
+	int data2[MAX];
+	int n = 0;
+	FILE*fp = fopen("input7.txt", "r");
+	while (fscanf(fp, "%d", &data[n]) != EOF) {
+		n++;
+	}
+	fclose(fp);
+	data2[0] = data[n-1];
+	for (int i = 0; i < n-1; i++) 
+		data2[i + 1] = data[i];
+	
+	for (int i = 0; i < n; i++) 
+		printf("%d", data2[i]);
+	
+	return 0;	
+}
+
+8.
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int data[MAX];
+	int data2[MAX];
+	int n = 0;
+	FILE*fp = fopen("input7.txt", "r");
+	while (fscanf(fp, "%d", &data[n]) != EOF) {
+		n++;
+	}
+	fclose(fp);
+	data2[0] = data[n-1];
+	for (int i = 0; i < n-1; i++) 
+		data2[i + 1] = data[n-(i+2)];
+	
+	for (int i = 0; i < n; i++) 
+		printf("%d  ", data2[i]);
+	
+	return 0;	
+}
+
+9.
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int data[MAX];
+	int i = 0, leader, count = 0;
+	FILE*fp = fopen("input9.txt", "r");
+	while (fscanf(fp, "%d", &data[i]) != EOF) {
+		i++;
+	}
+	fclose(fp);
+	int lead[MAX];
+
+	lead[0] = data[0];
+	leader = data[0];
+
+	int k = 1;
+	for (int j = 1; j < i; j++) {
+		if (data[j] >= leader) {
+			leader = data[j];
+			lead[k] = leader; k++;
+		}
+	}
+	printf("%d:", k);
+	for (int i = 0; i < k; i++)
+		printf("%d ", lead[i]);
+
+	return 0;
+
+}
+
+10-1.
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int data[MAX];
+	int i = 0;
+	FILE*fp = fopen("input9.txt", "r");
+	while (fscanf(fp, "%d", &data[i]) != EOF) {
+		i++;
+	}
+	fclose(fp);
+
+	int j, a = 0;
+	int result=0;
+
+	for (int k = 0; k < i; k++) {
+
+		if ((data[k + 1] - data[k]) >=0) {//오름차순일 때, j=1
+			if (j == -1) a = k;//a로 오름차순의 처음을 잡아준다
+
+			j = 1;
+		}
+		if ((data[k + 1] - data[k]) < 0) {//내림차순일 때, j=-1
+			if (j == 1) 
+				result += data[k] - data[a];//마지막 오름차순-오름차순의 처음
+			j = -1;
+		}
+	}
+	printf("%d\n", result);
+
+}
+
+10-2.
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int data[MAX];
+	int i = 0;
+	FILE*fp = fopen("input9.txt", "r");
+	while (fscanf(fp, "%d", &data[i]) != EOF) {
+		i++;
+	}
+	fclose(fp);
+
+	int result = 0;
+
+	for (int k = 0; k < i; k++) {
+
+		if ((data[k + 1] - data[k]) >= 0) {
+			result += data[k + 1] - data[k];
+		}
+		if ((data[k + 1] - data[k]) < 0) {
+			continue;
+		}
+	}
+	printf("%d\n", result);
+	return 0;
+}
+11.
+
+#include <stdio.h>
+#define MAX 100
+int main(void)
+{
+	int data[MAX];
+	int data2[MAX];
+	int n = 0;
+	FILE*fp = fopen("input11_1.txt", "r");
+	while (fscanf_s(fp, "%d", &data[n]) != EOF) {
+		n++;
+	}
+	fclose(fp);
+	fopen("input11_2.txt", "r");
+	while (fscanf(fp, "%d", &data2[n]) != EOF) {
+		n++;
+	}
+	fclose(fp);
+	int data3[MAX];
+	int j = 0;
+	for (int i = 0; i <n; i+=2) {
+		data3[i] = data[j];
+		j++;
+	}
+	for (int i = 1; i < n + 1; i += 2) {
+		data3[i] = data2[j];
+		j++;
+	}
+	for (int i = 0; i < n; i++)
+		printf("%d\n",data3[i]);
+
+	return 0;	
+}
